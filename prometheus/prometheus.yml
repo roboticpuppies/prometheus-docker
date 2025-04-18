@@ -14,3 +14,13 @@ scrape_configs:
     scheme: 'https'
     static_configs:
       - targets: ['metrics.servercare.id']
+
+  - job_name: 'cadvisor'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['cadvisor:8080']
+    metric_relabel_configs:
+      # Drop unnecessary expensive metrics from cadvisor
+    - source_labels: [__name__]
+      regex: (container_tasks_state|container_memory_failures_total|container_memory_working_set_bytes|container_memory_swap|container_memory_failcnt)
+      action: drop
