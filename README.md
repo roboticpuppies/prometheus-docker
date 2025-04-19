@@ -11,7 +11,7 @@ flowchart RL
     direction RL
     Prometheus --> |scrape| NodeExporter["node_exporter:9100"]
     Prometheus --> |scrape| cAdvisor["cAdvisor:8080"]
-    Prometheus --> |scrape| customApp["https://metrics_from_app"]
+    Prometheus --> |scrape| customApp["metrics_from_app:443"]
     Grafana --> |query| Prometheus
   end
 Grafana --> |send notification| MessagingPlatform["Messaging Platform"]
